@@ -4,7 +4,6 @@ public class User {
 
 	private Integer id;
 	private String username;
-	private double balance;
 
 	public Integer getId() {
 		return id;
@@ -22,7 +21,4 @@ public class User {
 		this.username = username;
 	}
 	
-	public double getAccountBalance(String username) {
-		return balance;
-	}
 }

@@ -6,8 +6,6 @@ public interface AccountDAO {
 	
     User getUser();
     
-//    double getAccountBalance(String username);
-    
     double getAccountBalance(int id);
     
 }

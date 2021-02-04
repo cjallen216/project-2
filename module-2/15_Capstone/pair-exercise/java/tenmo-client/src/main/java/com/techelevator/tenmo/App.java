@@ -31,7 +31,6 @@ public class App
 	private AuthenticatedUser currentUser;
 	private ConsoleService console;
 	private AuthenticationService authenticationService;
-	private AccountService accountService;
 
 	public static void main(String[] args)
 	{
@@ -88,12 +87,12 @@ public class App
 
 	private void viewCurrentBalance()
 	{
+		AccountService accountService = new AccountService(API_BASE_URL, currentUser);
+		
 		try {
-			System.out.println("Here is your balance: ");
-			accountService.getAccountBalanceRequest(currentUser.getUser().getId());
-			System.out.println("TEST LINE HERE: ");
+			accountService.getAccountBalanceRequest();
 		} 
-		catch (NullPointerException e)
+		catch (Exception e)
 		{
 			System.out.println("ERROR: " + e.getMessage());
 		}

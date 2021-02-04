@@ -26,14 +26,6 @@ public class AccountSqlDAO implements AccountDAO {
 		return balance;
 	}
 	
-//    public double getAccountBalance(String username) {
-//    	return jdbcTemplate.queryForObject("SELECT a.balance\r\n" + 
-//						    			"FROM accounts AS a\r\n" + 
-//						    			"INNER JOIN users AS u\r\n" + 
-//						    			"        ON a.user_id = u.user_id\r\n" + 
-//						    			"WHERE u.username = ?;", double.class, username);
-//    }
-    
     public double getAccountBalance(int id) {
     	return jdbcTemplate.queryForObject("SELECT balance\r\n" + 
 								    			"FROM accounts\r\n" + 
