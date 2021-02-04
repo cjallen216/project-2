@@ -88,11 +88,12 @@ public class App
 
 	private void viewCurrentBalance()
 	{
-		// TODO Auto-generated method stub
-		System.out.println("Here is your balance: ");
 		try {
+			System.out.println("Here is your balance: ");
 			accountService.getAccountBalanceRequest(currentUser.getUser().getId());
-		} catch (AuthenticationServiceException e)
+			System.out.println("TEST LINE HERE: ");
+		} 
+		catch (NullPointerException e)
 		{
 			System.out.println("ERROR: " + e.getMessage());
 		}
