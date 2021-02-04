@@ -2,6 +2,7 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.UserCredentials;
+import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.view.ConsoleService;
@@ -30,6 +31,7 @@ public class App
 	private AuthenticatedUser currentUser;
 	private ConsoleService console;
 	private AuthenticationService authenticationService;
+	private AccountService accountService;
 
 	public static void main(String[] args)
 	{
@@ -88,6 +90,13 @@ public class App
 	{
 		// TODO Auto-generated method stub
 		System.out.println("Here is your balance: ");
+		try {
+			accountService.getAccountBalanceRequest(currentUser.getUser().getId());
+		} catch (AuthenticationServiceException e)
+		{
+			System.out.println("ERROR: " + e.getMessage());
+		}
+		
 
 	}
 

@@ -68,7 +68,7 @@ public class AuthenticationController {
             userDAO.create(newUser.getUsername(),newUser.getPassword());
         }
     }
-
+    
     /**
      * Object to return as body in JWT Authentication.
      */
