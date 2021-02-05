@@ -19,6 +19,11 @@ public class TransferService
 	private String BASE_URL;
     private RestTemplate restTemplate = new RestTemplate();
     private AuthenticatedUser currentUser;
+    private int selectedId;
+    public Scanner scanner = new Scanner(System.in);
+    public User[] users;
+    public double amountToSend;
+    public AccountService accountService;
     
     public TransferService(String url, AuthenticatedUser currentUser) 
     {
@@ -28,48 +33,36 @@ public class TransferService
     
     public void sendMoney() 
     {
-    	User[] users = null;
-    	
     	TransferC transfer = new TransferC();
     	
-    	Scanner scanner = new Scanner(System.in);
-    	
     	users = restTemplate.exchange(BASE_URL + "/users", HttpMethod.GET, makeAuthEntity(), User[].class).getBody();
+    	System.out.println("Here are the users you can send money to! ");
     	
     	for (User user : users)
 		{
-			if(user.getId() == currentUser.getUser().getId()) 
+			if(user.getId() != currentUser.getUser().getId()) 
 			{
-				
+				System.out.println(user.getUsername() + ", " + user.getId());
 			}
 		}
+    	System.out.print("Please select a user id to send money to:");
+    	String selectedUser = scanner.nextLine();
+    	selectedId = Integer.parseInt(selectedUser);
+    	System.out.print("How much would you like to send them? ");
+    	String inputMoney = scanner.nextLine();
+    	amountToSend = Double.parseDouble(inputMoney);
     	
-    	System.out.println("Hey look at these users! " + users);
+    	transfer.setAccountFrom(currentUser.getUser().getId());
+    	transfer.setAccountTo(selectedId);
+    	
+    	if (accountService.getAccountBalanceRequest() - amountToSend > 0) {
+    		
+    	} else {
+    		System.out.println("Sorry you don't have enough funds.");
+    	}
+    	
     	
     }
-    
-    
-//    public User[] getUsersList() 
-//    {
-//    	User[] users = null;
-//    	
-//    	try
-//		{
-//			users = restTemplate.getForObject(BASE_URL + "/users", User[].class);
-//			System.out.println("Which user would you like to send money to? "); 
-//			System.out.println("Users: " + users);
-//			
-//		} 
-//    	catch (Exception e)
-//		{
-//			// TODO: handle exception
-//		}
-//    	
-//    	return users;
-//    }
-    
-    
-    
     
 	private HttpEntity makeAuthEntity()
 	{
@@ -78,5 +71,4 @@ public class TransferService
 		HttpEntity entity = new HttpEntity<>(headers);
 		return entity;
 	}
-
 }

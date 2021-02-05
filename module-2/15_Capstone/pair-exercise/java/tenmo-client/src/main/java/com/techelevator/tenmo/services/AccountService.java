@@ -25,13 +25,13 @@ public class AccountService {
     	
     }
 
-    public BigDecimal getAccountBalanceRequest() {
+    public double getAccountBalanceRequest() {
     	
-    	BigDecimal balance = new BigDecimal(0);
+    	double balance = 0;
     	
     	try {
     	
-    		balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance", HttpMethod.GET, makeAuthEntity(), BigDecimal.class).getBody();
+    		balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance", HttpMethod.GET, makeAuthEntity(), double.class).getBody();
     		System.out.println("Here is your balance: $" + balance);
     		
     	} catch(RestClientResponseException ex) {
