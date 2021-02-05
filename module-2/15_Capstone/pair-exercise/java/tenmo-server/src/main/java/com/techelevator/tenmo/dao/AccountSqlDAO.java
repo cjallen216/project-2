@@ -14,7 +14,8 @@ public class AccountSqlDAO implements AccountDAO {
 	private User user;
 	private double balance;
 	
-	public AccountSqlDAO(JdbcTemplate jdbcTemplate) {
+	public AccountSqlDAO(JdbcTemplate jdbcTemplate) 
+	{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 

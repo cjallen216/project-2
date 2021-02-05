@@ -24,16 +24,7 @@ public class AccountService {
     	this.currentUser = currentUser;
     	
     }
-//
-//    	public Accounts getBalanceById(int id) {
-//    	String url = BASE_URL + "/" + id + "balance";
-//    	Accounts balance = restTemplate.getForObject(url, Accounts.class);
-//
-//    	return balance;
 
-//    public AccountService(String url) {
-//        this.BASE_URL = url;
-//    }
     public BigDecimal getAccountBalanceRequest() {
     	
     	BigDecimal balance = new BigDecimal(0);
@@ -48,10 +39,6 @@ public class AccountService {
         }
     	return balance;
     	
-//    	Accounts account = restTemplate.getForObject(BASE_URL + "accounts/" + id + "/balance", Accounts.class);
-//    	
-//        return account.getBalance();
- 
     }
     
     /**
