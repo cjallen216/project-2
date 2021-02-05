@@ -1,8 +1,6 @@
-package com.techelevator.tenmo.models;
+package com.techelevator.tenmo.model;
 
-import java.math.BigDecimal;
-
-public class Accounts
+public class AccountsS
 {
 	private int accountId;
 	private int userId;
@@ -37,4 +35,5 @@ public class Accounts
 	
 	
 	
+
 }

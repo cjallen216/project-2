@@ -40,7 +40,7 @@ public class TransferService
 		{
 			if(user.getId() == currentUser.getUser().getId()) 
 			{
-				// figure out how to get to findAll() from transferController
+				
 			}
 		}
     	
