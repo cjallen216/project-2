@@ -5,6 +5,7 @@ import com.techelevator.tenmo.models.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
+import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.view.ConsoleService;
 
 public class App
@@ -114,7 +115,17 @@ public class App
 
 	private void sendBucks()
 	{
-		// TODO Auto-generated method stub
+		TransferService transferService = new TransferService(API_BASE_URL, currentUser);
+		
+		try
+		{
+			transferService.sendMoney();
+			
+		} 
+		catch (Exception e)
+		{
+			System.out.println("ERROR: " + e.getMessage());
+		}
 
 	}
 
