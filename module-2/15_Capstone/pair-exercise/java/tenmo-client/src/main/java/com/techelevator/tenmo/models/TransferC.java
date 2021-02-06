@@ -13,7 +13,17 @@ public class TransferC
 	private String usernameReceive;
 	private String usernameSend;
 	
+	public TransferC()
+	{
+		
+	}
 	
+	public TransferC(int accountFrom, int accountTo, double amount)
+	{
+		this.accountFrom = accountFrom;
+		this.accountTo = accountTo;
+		this.amount = amount;
+	}
 	public int getTransferId()
 	{
 		return transferId;

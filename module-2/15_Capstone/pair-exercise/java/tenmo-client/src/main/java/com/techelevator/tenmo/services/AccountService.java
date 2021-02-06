@@ -13,33 +13,41 @@ import org.springframework.web.client.RestTemplate;
 import com.techelevator.tenmo.models.Accounts;
 import com.techelevator.tenmo.models.AuthenticatedUser;
 
-public class AccountService {
-    private String BASE_URL;
-    private RestTemplate restTemplate = new RestTemplate();
-    private AuthenticatedUser currentUser;
-    public Accounts account;
-    private double balance;
-    
-    
-    public AccountService(String url, AuthenticatedUser currentUser)
-    {
-    	this.BASE_URL = url + "accounts";
-    	this.currentUser = currentUser;
-    	
-    }
+public class AccountService
+{
+	private String BASE_URL;
+	private RestTemplate restTemplate = new RestTemplate();
+	private AuthenticatedUser currentUser;
+	private double balance;
 
-    public double getAccountBalanceRequest() {
-    	
-    	try {
-    		double balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance", HttpMethod.GET, makeAuthEntity(), double.class).getBody();
-    		System.out.println("Here is your balance: $" + balance);
-    	} catch(RestClientResponseException ex) {
-    		System.err.println("Sorry, that didn't go as planned!");
-        }
-		return balance;
-    }
-    
-    /**
+	public AccountService(String url, AuthenticatedUser currentUser)
+	{
+		this.BASE_URL = url + "accounts";
+		this.currentUser = currentUser;
+	}
+
+	public double getAccountBalanceRequest()
+	{
+		Accounts accounts = new Accounts();
+
+		try
+		{
+			double balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance",
+					HttpMethod.GET, makeAuthEntity(), double.class).getBody();
+
+			accounts.setBalance(balance);
+			return accounts.getBalance();
+
+//			System.out.println("Here is your balance: $" + accounts.getBalance());
+			
+		} catch (RestClientResponseException ex)
+		{
+			System.err.println("Sorry, that didn't go as planned!");
+		}
+		return accounts.getBalance();
+	}
+
+	/**
 	 * Returns an {HttpEntity} with the `Authorization: Bearer:` header
 	 *
 	 * @return {HttpEntity}
@@ -51,7 +59,5 @@ public class AccountService {
 		HttpEntity entity = new HttpEntity<>(headers);
 		return entity;
 	}
-
-    
 
 }

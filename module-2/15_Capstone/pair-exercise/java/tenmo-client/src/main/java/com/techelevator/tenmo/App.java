@@ -91,7 +91,7 @@ public class App
 	{
 		AccountService accountService = new AccountService(API_BASE_URL, currentUser);
 		try {			
-			accountService.getAccountBalanceRequest();
+			System.out.println("Here is your balance: $" + accountService.getAccountBalanceRequest());
 		} 
 		catch (Exception e)
 		{
