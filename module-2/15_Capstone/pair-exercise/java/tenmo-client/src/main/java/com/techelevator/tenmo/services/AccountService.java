@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import java.math.BigDecimal;
+import java.nio.ByteBuffer;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,8 @@ public class AccountService {
     private String BASE_URL;
     private RestTemplate restTemplate = new RestTemplate();
     private AuthenticatedUser currentUser;
+    public Accounts account;
+    private double balance;
     
     
     public AccountService(String url, AuthenticatedUser currentUser)
@@ -27,18 +30,13 @@ public class AccountService {
 
     public double getAccountBalanceRequest() {
     	
-    	double balance = 0;
-    	
     	try {
-    	
-    		balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance", HttpMethod.GET, makeAuthEntity(), double.class).getBody();
+    		double balance = restTemplate.exchange(BASE_URL + "/" + currentUser.getUser().getId() + "/balance", HttpMethod.GET, makeAuthEntity(), double.class).getBody();
     		System.out.println("Here is your balance: $" + balance);
-    		
     	} catch(RestClientResponseException ex) {
-    	
+    		System.err.println("Sorry, that didn't go as planned!");
         }
-    	return balance;
-    	
+		return balance;
     }
     
     /**

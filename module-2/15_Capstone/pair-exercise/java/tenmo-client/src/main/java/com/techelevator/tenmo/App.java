@@ -1,5 +1,6 @@
 package com.techelevator.tenmo;
 
+import com.techelevator.tenmo.models.Accounts;
 import com.techelevator.tenmo.models.AuthenticatedUser;
 import com.techelevator.tenmo.models.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
@@ -89,8 +90,7 @@ public class App
 	private void viewCurrentBalance()
 	{
 		AccountService accountService = new AccountService(API_BASE_URL, currentUser);
-		
-		try {
+		try {			
 			accountService.getAccountBalanceRequest();
 		} 
 		catch (Exception e)
