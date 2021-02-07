@@ -46,10 +46,8 @@ public class TransferSqlDAO implements TransferDAO
 	}
 	
 	@Override
-	public void createTransfer(int accountFrom, int accountTo, double amount)
-	{
-		TransferS transfers = new TransferS();
-				
+	public String createTransfer(int accountFrom, int accountTo, double amount)
+	{				
 		String sql = "INSERT INTO transfers\r\n" + 
 							"(\r\n" + 
 							"        transfer_type_id\r\n" + 
@@ -68,6 +66,36 @@ public class TransferSqlDAO implements TransferDAO
 							");";
 		
 		jdbcTemplate.update(sql, accountFrom, accountTo, amount);
+		
+		accountDAO.addToBalance(amount, accountTo);
+		accountDAO.subtractFromBalance(amount, accountFrom);
+		
+		return "Transfer Complete!!!";
+	}
+	
+	@Override
+	public List<TransferS> getAllTransfers(int userId) {
+		List<TransferS> allTransfers = new ArrayList<>();
+		String sql = "SELECT t.*\r\n" + 
+							"        , u.username AS userFrom\r\n" + 
+							"        , us.username AS userTo\r\n" + 
+							"FROM transfers AS t\r\n" + 
+							"INNER JOIN accounts AS a\r\n" + 
+							"        ON t.account_from = a.account_id\r\n" + 
+							"INNER JOIN accounts AS ac\r\n" + 
+							"        ON t.account_to = ac.account_id\r\n" + 
+							"INNER JOIN users AS u\r\n" + 
+							"        ON a.user_id = u.user_id\r\n" + 
+							"INNER JOIN users AS us\r\n" + 
+							"        ON ac.user_id = us.user_id\r\n" + 
+							"WHERE a.user_id = ?\r\n" + 
+							"        OR ac.user_id = ?;";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId, userId);
+		while (rows.next() ) {
+			TransferS transfer = mapRowToTransfer(rows);
+			allTransfers.add(transfer);
+		}
+		return allTransfers;
 	}
 	
 	

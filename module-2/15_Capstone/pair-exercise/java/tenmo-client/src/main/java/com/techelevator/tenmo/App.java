@@ -103,7 +103,8 @@ public class App
 
 	private void viewTransferHistory()
 	{
-		// TODO Auto-generated method stub
+		TransferService viewAllTransfers = new TransferService(API_BASE_URL, currentUser);
+		viewAllTransfers.transfersList();
 
 	}
 
