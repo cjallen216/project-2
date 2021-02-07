@@ -14,7 +14,8 @@ import com.techelevator.tenmo.dao.UserDAO;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-public class AccountController {
+public class AccountController
+{
 	
 	@Autowired
 	private AccountDAO accountDAO;
@@ -29,7 +30,8 @@ public class AccountController {
 	
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/accounts/{id}/balance", method = RequestMethod.GET)
-    public double getAccountBalance(@PathVariable int id) {
+    public double getAccountBalance(@PathVariable int id)
+    {
     	
     	double balance = accountDAO.getAccountBalance(id);
     	

@@ -74,11 +74,13 @@ public class TransferSqlDAO implements TransferDAO
 	}
 	
 	@Override
-	public List<TransferS> getAllTransfers(int userId) {
+	public List<TransferS> getAllTransfers(int userId)
+	{
 		List<TransferS> allTransfers = new ArrayList<>();
+	
 		String sql = "SELECT t.*\r\n" + 
-							"        , u.username AS userFrom\r\n" + 
-							"        , us.username AS userTo\r\n" + 
+							"        , u.username AS user_from\r\n" + 
+							"        , us.username AS user_to\r\n" + 
 							"FROM transfers AS t\r\n" + 
 							"INNER JOIN accounts AS a\r\n" + 
 							"        ON t.account_from = a.account_id\r\n" + 
@@ -90,31 +92,35 @@ public class TransferSqlDAO implements TransferDAO
 							"        ON ac.user_id = us.user_id\r\n" + 
 							"WHERE a.user_id = ?\r\n" + 
 							"        OR ac.user_id = ?;";
+		
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, userId, userId);
-		while (rows.next() ) {
+		
+		while (rows.next())
+		{
 			TransferS transfer = mapRowToTransfer(rows);
 			allTransfers.add(transfer);
 		}
+
 		return allTransfers;
 	}
 	
-	
-	
-	
-	
-	
-	private User mapRowToUser(SqlRowSet rs) {
+	private User mapRowToUser(SqlRowSet rs)
+	{
         User user = new User();
+    
         user.setId(rs.getLong("user_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setActivated(true);
         user.setAuthorities("ROLE_USER");
+        
         return user;
     }
 	
-	private TransferS mapRowToTransfer(SqlRowSet rs) {
+	private TransferS mapRowToTransfer(SqlRowSet rs)
+	{
         TransferS transfer = new TransferS();
+    
         transfer.setTransferId(rs.getInt("transfer_id"));
         transfer.setTransferTypeId(rs.getInt("transfer_type_id"));
         transfer.setTransferStatusId(rs.getInt("transfer_status_id"));

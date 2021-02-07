@@ -40,6 +40,7 @@ public class TransferController
 	public List<User> getUsersList() 
 	{
 		List<User> users = userDAO.findAll();
+		
 		return users;
 	}
 	
@@ -53,8 +54,10 @@ public class TransferController
 	}
 	
 	@RequestMapping(value = "account/transfers/{id}", method = RequestMethod.GET)
-	public List<TransferS> getAllMyTransfers(@PathVariable int id) {
+	public List<TransferS> getAllMyTransfers(@PathVariable int id)
+	{
 		List<TransferS> transfers = transferDAO.getAllTransfers(id);
+	
 		return transfers;
 	}
 	

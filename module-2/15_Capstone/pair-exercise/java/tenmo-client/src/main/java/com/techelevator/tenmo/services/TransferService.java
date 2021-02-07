@@ -137,7 +137,8 @@ public class TransferService
 						transfer.getTransferId() + "          " + sendReceive + "          $" + transfer.getAmount());
 			}
 			System.out.println("-------------------------------------------");
-			System.out.println("Please enter transfer ID to view details (0 to cancel): ");
+			System.out.println();
+			//System.out.println("Please enter transfer ID to view details (0 to cancel): ");
 			// not complete yet
 			
 			
